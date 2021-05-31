@@ -1,4 +1,5 @@
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 
 /*
 The settings script is an entry point for defining a TeamCity
@@ -25,12 +26,17 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 version = "2020.2"
 
 project {
-  buildType(HelloWorld)
+
+    buildType(Build1)
 }
 
-object HelloWorld: BuildType({
-    name = "Hello world"
+object Build1 : BuildType({
+    name = "build1"
+
     steps {
-            scriptContent = "echo 'Hello world!'"
+        script {
+            name = "Versions"
+            scriptContent = "%teamcity.tool.cmdline-tools_lite%/bin/sdkmanager"
+        }
     }
 })
